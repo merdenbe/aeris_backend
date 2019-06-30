@@ -36,4 +36,4 @@ Install PIP dependencies (make sure you are inside your virtual environment!):
     Note: theron should be running as well
 
         $ source env.sh
-        (venv) $ gunicorn -b localhost:8004 --reload start:api
+        (venv) $ gunicorn -b localhost:8001 --reload start:api
