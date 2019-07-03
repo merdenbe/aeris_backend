@@ -1,7 +1,7 @@
 import os
 import falcon
 
-from .modules.login.resource import LoginResource
+from .modules.reauthenticate.resources import ReauthenticateResource
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -13,13 +13,13 @@ def create_api():
     api = falcon.API()
 
     # Initialize database connection
-    engine = create_engine(os.environ["DATABASE_URL"], echo=False)
-    session = sessionmaker(bind=engine)
+    Api_Engine= create_engine(os.environ["DATABASE_URL"], echo=False)
+    Api_Session = sessionmaker(bind=Api_Engine)
 
     # Initialize resoure instances
-    login_resource = LoginResource()
+    reauthenticate_resource = ReauthenticateResource(Api_Session)
 
     # Declare routes
-    api.add_route('/login', login_resource)
+    api.add_route('/reauthenticate', reauthenticate_resource)
 
     return api
