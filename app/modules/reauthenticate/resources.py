@@ -14,14 +14,14 @@ class ReauthenticateResource:
         password = body.get("password")
         email = body.get("email")
         if password is None or email is None:
-            msg = "Must provid email and password."
+            msg = "Must provide email and password."
             raise HTTPBadRequest("Bad Request", msg)
 
         # Validate email password combination
         valid_combo = self.db.validate(email, password)
         if not valid_combo:
             msg = "Invalid username/password combination."
-            raise HTTPUnauthorized("Unauthorizde", msg)
+            raise HTTPUnauthorized("Unauthorized", msg)
 
         resp.media = {'token': self.db.generate_token()}
 

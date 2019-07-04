@@ -4,6 +4,8 @@ import binascii
 import os
 import uuid
 
+from falcon import HTTPUnauthorized
+
 from .models import Token, Account
 from ..utils import Session_Maker
 
@@ -13,10 +15,14 @@ class db:
     def __init__(self, Api_Session):
         self.Api_Session = Api_Session
 
-    def validate(email, password):
+    def validate(self, email, password):
         sm = Session_Maker(self.Api_Session)
         with sm as session:
             account = session.query(Account).filter(Account.email == email).first()
+            if account is None:
+                msg = "Email address is not in the system."
+                raise HTTPUnauthorized("Email not found", msg)
+
             return verify_password(account.password, password)
 
     def generate_token(self):
