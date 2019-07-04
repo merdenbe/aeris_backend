@@ -1,7 +1,5 @@
 import binascii
 import hashlib
-import binascii
-import os
 import uuid
 
 from falcon import HTTPUnauthorized
@@ -15,6 +13,7 @@ class db:
     def __init__(self, Api_Session):
         self.Api_Session = Api_Session
 
+    # Validates an email password combination
     def validate(self, email, password):
         sm = Session_Maker(self.Api_Session)
         with sm as session:
@@ -25,21 +24,19 @@ class db:
 
             return verify_password(account.password, password)
 
+    # Generates and stores access token
     def generate_token(self):
         sm = Session_Maker(self.Api_Session)
         with sm as session:
-            # Generate token
             token = Token(value=str(uuid.uuid4()))
-
-            # Store token
             session.add(token)
             session.commit()
 
             return token.value
 
 
+# Verify a stored password against one provided by user
 def verify_password(stored_password, provided_password):
-    """Verify a stored password against one provided by user"""
     salt = stored_password[:64]
     stored_password = stored_password[64:]
     pwdhash = hashlib.pbkdf2_hmac('sha512',

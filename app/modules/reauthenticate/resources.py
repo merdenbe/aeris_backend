@@ -7,6 +7,7 @@ from .db import db
 
 class ReauthenticateResource:
 
+    # Checks email/password combination and generates a token if verified
     def on_post(self, req, resp):
         body = ujson.loads(req.stream.read())
 
@@ -24,7 +25,6 @@ class ReauthenticateResource:
             raise HTTPUnauthorized("Unauthorized", msg)
 
         resp.media = {'token': self.db.generate_token()}
-
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)

@@ -30,5 +30,13 @@ class Token(Base):
 
     value = Column(String(64), nullable=False)
 
-    created_at = Column(DateTime(timezone=True), nullable=False, default=utcnow_datetime_aware())
-    expires_at = Column(DateTime(timezone=True), nullable=False, default=(utcnow_datetime_aware()+timedelta(weeks=12)))
+    created_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=utcnow_datetime_aware()
+    )
+    expires_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=(utcnow_datetime_aware()+timedelta(weeks=12))
+    )

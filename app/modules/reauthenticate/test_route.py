@@ -1,9 +1,10 @@
-import unittest
 import requests
 import ujson
-import requests
+import unittest
+
 
 STAGING_URL = 'https://aris-backend-staging.herokuapp.com/reauthenticate'
+
 
 class TestReauthenticate(unittest.TestCase):
 

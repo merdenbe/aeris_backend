@@ -1,10 +1,12 @@
 import arrow
 
 
+# Retunrs current utc datetime
 def utcnow_datetime_aware():
     """Returns a timezone-aware datetime for the current UTC moment."""
 
     return arrow.utcnow().datetime
+
 
 # Session Maker Context Manager
 class Session_Maker():

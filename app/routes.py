@@ -13,7 +13,7 @@ def create_api():
     api = falcon.API()
 
     # Initialize database connection
-    Api_Engine= create_engine(os.environ["DATABASE_URL"], echo=False)
+    Api_Engine = create_engine(os.environ["DATABASE_URL"], echo=False)
     Api_Session = sessionmaker(bind=Api_Engine)
 
     # Initialize resoure instances
