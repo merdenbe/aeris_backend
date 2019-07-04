@@ -1,2 +1,2 @@
-release: flask db upgrade
+release: alembic upgrade head
 web: gunicorn start:api
