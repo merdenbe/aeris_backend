@@ -2,6 +2,7 @@ import os
 import falcon
 
 from .modules.reauthenticate.resources import ReauthenticateResource
+from .modules.register.resources import RegisterResource
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

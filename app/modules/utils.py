@@ -1,7 +1,7 @@
 import arrow
+import uuid
 
-
-# Retunrs current utc datetime
+# Retunrns current utc datetime
 def utcnow_datetime_aware():
     """Returns a timezone-aware datetime for the current UTC moment."""
 
@@ -19,3 +19,4 @@ class Session_Maker():
 
     def __exit__(self, type, value, traceback):
         self.session.close()
+

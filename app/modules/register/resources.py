@@ -17,13 +17,13 @@ class RegisterResource:
             raise HTTPBadRequest("Bad Request", msg)
 
         # Create account
-        account_id = self.db.create_account(body)
+        self.db.create_account(body)
 
-
+        # Generate and return token
+        resp.media = {'token': self.db.generate_token()}
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
-
 
 
 def is_valid(body):

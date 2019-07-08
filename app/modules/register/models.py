@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKeyConstraint
 
 
 Base = declarative_base()
@@ -10,9 +10,11 @@ class Profile(Base):
 
     __tablename__ = "profiles"
 
-    id = Column(Integer, primary_key=True, ForeignKey("account.id"))
+    account_id = Column(Integer, primary_key=True)
     gradYear = Column(Integer, nullable=False)
 
-    major = Column(String(50), nullable=False)
+    major = Column(String(128), nullable=False)
     firstName = Column(String(50), nullable=False)
     lastName = Column(String(50), nullable=False)
+
+    ForeignKeyConstraint(['account_id'], ['accounts.id'], )
