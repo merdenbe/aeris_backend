@@ -2,6 +2,7 @@ import os
 import falcon
 
 from .modules.reauthenticate.resources import ReauthenticateResource
+from .modules.register.resources import RegisterResource
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -18,8 +19,10 @@ def create_api():
 
     # Initialize resoure instances
     reauthenticate_resource = ReauthenticateResource(Api_Session)
+    register_resource = RegisterResource(Api_Session)
 
     # Declare routes
     api.add_route('/reauthenticate', reauthenticate_resource)
+    api.add_route('/register', register_resource)
 
     return api
