@@ -14,7 +14,6 @@ __pycache__/
 
 venv/
 tmp/
-scripts/retention_metrics/*.csv
 
 #### Database files.
 
