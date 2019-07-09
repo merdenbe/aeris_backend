@@ -1,5 +1,5 @@
 import arrow
-import uuid
+
 
 # Retunrns current utc datetime
 def utcnow_datetime_aware():
@@ -19,4 +19,3 @@ class Session_Maker():
 
     def __exit__(self, type, value, traceback):
         self.session.close()
-

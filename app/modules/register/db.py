@@ -3,8 +3,6 @@ import hashlib
 import os
 import uuid
 
-from falcon import HTTPUnauthorized
-
 from ..reauthenticate.models import Token, Account
 from .models import Profile
 from ..utils import Session_Maker
@@ -17,7 +15,7 @@ class db:
 
     # Validates an email password combination
     def create_account(self, body):
-       # Salt and hash password
+        # Salt and hash password
         password = hash_password(body['password'])
 
         # Create account and profile
@@ -53,7 +51,6 @@ class db:
 
 def hash_password(password):
     salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
-    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
-                                salt, 100000)
+    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt, 100000)
     pwdhash = binascii.hexlify(pwdhash)
     return (salt + pwdhash).decode('ascii')

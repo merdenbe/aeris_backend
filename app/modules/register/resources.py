@@ -1,6 +1,6 @@
 import ujson
 
-from falcon import HTTPBadRequest, HTTPUnauthorized
+from falcon import HTTPBadRequest
 
 from .db import db
 
