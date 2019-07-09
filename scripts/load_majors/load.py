@@ -36,17 +36,20 @@ class University(Base):
 # Main Execution
 if __name__ == "__main__":
     csv = './NDMajors.csv'
+    print('[LOG]: opening csv')
     with open(csv) as c:
         # Read in file
         majors = [line.strip() for line in c.readlines()]
 
         # Open database connection
+        print('[LOG]: connecting to database')
         Api_Engine = create_engine(os.environ["DATABASE_URL"], echo=False)
         Api_Session = sessionmaker(bind=Api_Engine)
         session = Api_Session()
 
         # Insert majors into the db, even ""Film, Television, and Theatre"""
-        for major in majors:
+        print('[LOG]: inserting majors into database')
+        or major in majors:
             if major == "\"Film, Television, and Theatre\"":
                 major = "Film, Television, and Theatre"
             m = Major(name=major, university_id=1)
@@ -54,5 +57,8 @@ if __name__ == "__main__":
             session.commit()
 
         # Close session and dispose connection
+        print('[LOG]: closing dependencies')
         session.close()
         Api_Engine.dispose()
+
+    print('[LOG]: complete.')
