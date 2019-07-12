@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
         # Insert majors into the db, even ""Film, Television, and Theatre"""
         print('[LOG]: inserting majors into database')
-        or major in majors:
+        for major in majors:
             if major == "\"Film, Television, and Theatre\"":
                 major = "Film, Television, and Theatre"
             m = Major(name=major, university_id=1)
