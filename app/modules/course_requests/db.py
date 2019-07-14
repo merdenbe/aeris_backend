@@ -17,7 +17,7 @@ class db:
                 cr = CourseRequest(title=title, account_id=account_id)
                 session.add(cr)
                 session.commit()
-            except Exception as e:
+            except Exception:
                 msg = "Could not insert into database."
                 raise HTTPBadRequest("DB Exception", msg)
 

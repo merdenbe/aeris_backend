@@ -1,6 +1,6 @@
 import ujson
 
-from falcon import HTTPBadRequest, HTTPUnauthorized
+from falcon import HTTPBadRequest
 from profanity import profanity
 
 from .db import db
@@ -29,7 +29,6 @@ class CourseRequestResource:
 
         # Insert into database
         self.db.create_course_request(body["title"], body["account_id"])
-
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
