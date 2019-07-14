@@ -4,6 +4,7 @@ import falcon
 from .modules.reauthenticate.resources import ReauthenticateResource
 from .modules.register.resources import RegisterResource
 from .modules.majors.resources import MajorResource
+from .modules.course_requests.resources import CourseRequestResource
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -22,10 +23,12 @@ def create_api():
     reauthenticate_resource = ReauthenticateResource(Api_Session)
     register_resource = RegisterResource(Api_Session)
     major_resource = MajorResource(Api_Session)
+    course_request_resource = CourseRequestResource(Api_Session)
 
     # Declare routes
     api.add_route('/reauthenticate', reauthenticate_resource)
     api.add_route('/register', register_resource)
     api.add_route('/majors', major_resource)
+    api.add_route('/course_requests', course_request_resource)
 
     return api
