@@ -9,7 +9,11 @@ class RegisterResource:
 
     # Creates account and profile
     def on_post(self, req, resp):
-        body = ujson.loads(req.stream.read())
+        try:
+            body = ujson.loads(req.stream.read())
+        except ValueError:
+            msg = "Must send request body."
+            raise HTTPBadRequest("Bad Request", msg)
 
         # Check request body
         if not is_valid(body):
