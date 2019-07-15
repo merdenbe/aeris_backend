@@ -15,7 +15,11 @@ class CourseRequestResource:
 
     # Create a new course request
     def on_post(self, req, resp):
-        body = ujson.loads(req.stream.read())
+        try:
+            body = ujson.loads(req.stream.read())
+        except ValueError:
+            msg = "Must send request body."
+            raise HTTPBadRequest("Bad Request", msg)
 
         # Check request parameters
         if body.keys() != {"account_id", "title"}:
