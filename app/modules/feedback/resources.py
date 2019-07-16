@@ -4,11 +4,15 @@ import smtplib
 
 from falcon import HTTPBadRequest, HTTPFailedDependency
 
+from ..reauthenticate.authenticate import authenticate_request
+
 
 class FeedbackResource:
 
     # Sends email to feedback email address
     def on_post(self, req, resp):
+        authenticate_request(req, self.Api_Session)
+
         try:
             body = ujson.loads(req.stream.read())
         except ValueError:
@@ -28,6 +32,9 @@ class FeedbackResource:
             'User Feedback',
             body['msg']
         )
+
+    def __init__(self, Api_Session):
+        self.Api_Session = Api_Session
 
 
 def send_email(user, pwd, recipient, subject, body):

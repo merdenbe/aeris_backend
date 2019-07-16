@@ -4,17 +4,23 @@ from falcon import HTTPBadRequest
 from profanity import profanity
 
 from .db import db
+from ..reauthenticate.authenticate import authenticate_request
 
 
 class CourseRequestResource:
 
     # Return a set of all previously requested courses
     def on_get(self, req, resp):
+        authenticate_request(req, self.Api_Session)
+
         requested_courses = self.db.get_requested_courses()
+
         resp.media = {"requested_courses": requested_courses}
 
     # Create a new course request
     def on_post(self, req, resp):
+        authenticate_request(req, self.Api_Session)
+
         try:
             body = ujson.loads(req.stream.read())
         except ValueError:
@@ -36,3 +42,4 @@ class CourseRequestResource:
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
+        self.Api_Session = Api_Session
