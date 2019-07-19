@@ -18,7 +18,10 @@ class TestCourseRequests(unittest.TestCase):
     def test_valid_get(self):
         headers = {'Authorization': 'Bearer ' + os.environ["TEST_TOKEN"]}
         r = requests.get(url=STAGING_URL, headers=headers)
+        print(r.status_code)
+
         body = r.json()
+        print(body.keys())
 
         self.assertNotEqual(body["requested_courses"], None)
         self.assertTrue(r.status_code, 200)
