@@ -11,3 +11,4 @@ class MajorResource:
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
+        self.Api_Session = Api_Session

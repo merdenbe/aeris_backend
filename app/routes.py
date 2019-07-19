@@ -25,7 +25,7 @@ def create_api():
     register_resource = RegisterResource(Api_Session)
     major_resource = MajorResource(Api_Session)
     course_request_resource = CourseRequestResource(Api_Session)
-    feedback_resource = FeedbackResource()
+    feedback_resource = FeedbackResource(Api_Session)
 
     # Declare routes
     api.add_route('/reauthenticate', reauthenticate_resource)
