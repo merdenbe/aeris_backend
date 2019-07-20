@@ -38,6 +38,8 @@ class db:
             session.add(profile)
             session.commit()
 
+            return account.id
+
     # Generates and stores access token
     def generate_token(self):
         sm = Session_Maker(self.Api_Session)
