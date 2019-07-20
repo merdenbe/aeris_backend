@@ -22,7 +22,11 @@ class db:
                 msg = "Email address is not in the system."
                 raise HTTPUnauthorized("Email not found", msg)
 
-            return verify_password(account.password, password)
+            if not verify_password(account.password, password):
+                msg = "Incorrect email/password combination."
+                raise HTTPUnauthorized("Invalid combination", msg)
+
+            return account.id
 
     # Generates and stores access token
     def generate_token(self):

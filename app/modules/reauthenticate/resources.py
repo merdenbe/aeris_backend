@@ -1,6 +1,6 @@
 import ujson
 
-from falcon import HTTPBadRequest, HTTPUnauthorized
+from falcon import HTTPBadRequest
 
 from .db import db
 
@@ -23,12 +23,9 @@ class ReauthenticateResource:
             raise HTTPBadRequest("Bad Request", msg)
 
         # Validate email password combination
-        valid_combo = self.db.validate(email, password)
-        if not valid_combo:
-            msg = "Invalid username/password combination."
-            raise HTTPUnauthorized("Unauthorized", msg)
+        account_id = self.db.validate(email, password)
 
-        resp.media = {'token': self.db.generate_token()}
+        resp.media = {'account_id': account_id, 'token': self.db.generate_token()}
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
