@@ -23,9 +23,14 @@ class CouponResource:
 
         # Find coupon value
         coupon_value = self.db.get_coupon_value(body["account_id"], body["coupon_code"])
-        print(coupon_value)
 
-        #TODO update balance table
+        # Update balance
+        updated_balance = self.db.add_coupon_value(account_id, coupon_value)
+
+        return resp.media = {
+            "coupon_value": coupon_value,
+            "updated_balance": updated_balance
+        }
 
     def __init__(self, Api_Session):
         self.Api_Session = Api_Session

@@ -1,4 +1,4 @@
-from .models import Coupon
+from .models import Coupon, Balance, BalanceTransaction
 from ..utils import utcnow_datetime_aware, Session_Maker
 
 from falcon import HTTPBadRequest
@@ -36,3 +36,25 @@ class db:
             session.commit()
 
             return coupon.value
+
+    # Updates the balance value
+    def add_coupon_value(self, account_id, coupon_value):
+        sm = Session_Maker(self.Api_Session)
+        with sm as session:
+            # Find balance
+            balance = session.query(Balance).filter(Balance.account_id == account_id).first()
+
+            # Log transaction
+            bt = BalanceTransaction(
+                account_id = account_id,
+                old_value = balance.value,
+                new_value = balance.value + coupon_value
+            )
+            session.add(bt)
+
+            # Add value
+            balance.value += coupon_value
+            balance.updated_at = utcnow_datetime_aware()
+            session.commit()
+
+            return balance.value

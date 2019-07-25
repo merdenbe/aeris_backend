@@ -47,3 +47,39 @@ class Coupon(Base):
 
     ForeignKeyConstraint(['created_for'], ['accounts.id'], )
     ForeignKeyConstraint(['redeemed_by'], ['accounts.id'], )
+
+class Balance(Base):
+    ''' Stores the balances of accounts '''
+
+    __tablename__ = "balances"
+
+    account_id = Column(Integer, primary_key=True)
+
+    value = Column(Float, nullable=False, default=0.0)
+
+    updated_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=utcnow_datetime_aware()
+    )
+
+    ForeignKeyConstraint(['account_id'], ['accounts.id'], )
+
+class BalanceTransaction(Base):
+    ''' Stores a transaction for every change made to the balances table '''
+
+    __tablename__ = "balance_log"
+
+    id = Column(Integer, primary_key=True)
+    account_id = Column(Integer, nullable=False)
+
+    old_value = Column(Float, nullable=False)
+    new_value = Column(Float, nullable=False)
+
+    created_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=utcnow_datetime_aware()
+    )
+
+    ForeignKeyConstraint(['account_id'], ['accounts.id'], )

@@ -32,6 +32,26 @@ def upgrade():
         sa.ForeignKeyConstraint(['redeemed_by'], ['accounts.id'], ),
     )
 
+    op.create_table(
+        "balances",
+        sa.Column('account_id', sa.Integer, primary_key=True),
+        sa.Column('value', sa.Float, nullable=False),
+        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
+        sa.ForeignKeyConstraint(['account_id'], ['accounts.id'], )
+    )
+
+    op.create_table(
+        "balance_log",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('account_id', sa.Integer, nullable=False),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
+        sa.Column('old_value', sa.Float, nullable=False),
+        sa.Column('new_value', sa.Float, nullable=False),
+        sa.ForeignKeyConstraint(['account_id'], ['accounts.id'], )
+    )
+
 
 def downgrade():
     op.drop_table("coupons")
+    op.drop_table("balances")
+    op.drop_table("balance_log")
