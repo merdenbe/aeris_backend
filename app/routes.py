@@ -8,6 +8,7 @@ from .modules.course_requests.resources import CourseRequestResource
 from .modules.feedback.resources import FeedbackResource
 from .modules.questions.resources import QuestionResource
 from .modules.profile.resources import ProfileResource
+from .modules.coupons.resources import CouponResource
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -30,6 +31,7 @@ def create_api():
     feedback_resource = FeedbackResource(Api_Session)
     question_resource = QuestionResource(Api_Session)
     profile_resource = ProfileResource(Api_Session)
+    coupon_resource = CouponResource(Api_Session)
 
     # Declare routes
     api.add_route('/reauthenticate', reauthenticate_resource)
@@ -39,5 +41,6 @@ def create_api():
     api.add_route('/feedback', feedback_resource)
     api.add_route('/questions', question_resource)
     api.add_route('/profile', profile_resource)
+    api.add_route('/coupons', coupon_resource)
 
     return api
