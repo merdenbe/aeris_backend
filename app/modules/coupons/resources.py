@@ -25,9 +25,9 @@ class CouponResource:
         coupon_value = self.db.get_coupon_value(body["account_id"], body["coupon_code"])
 
         # Update balance
-        updated_balance = self.db.add_coupon_value(account_id, coupon_value)
+        updated_balance = self.db.add_coupon_value(body["account_id"], coupon_value)
 
-        return resp.media = {
+        resp.media = {
             "coupon_value": coupon_value,
             "updated_balance": updated_balance
         }
