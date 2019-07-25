@@ -5,6 +5,7 @@ from falcon import HTTPBadRequest
 from ..reauthenticate.authenticate import authenticate_request
 from .db import db
 
+
 class CouponResource:
 
     def on_put(self, req, resp):

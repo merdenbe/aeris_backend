@@ -48,6 +48,7 @@ class Coupon(Base):
     ForeignKeyConstraint(['created_for'], ['accounts.id'], )
     ForeignKeyConstraint(['redeemed_by'], ['accounts.id'], )
 
+
 class Balance(Base):
     ''' Stores the balances of accounts '''
 
@@ -64,6 +65,7 @@ class Balance(Base):
     )
 
     ForeignKeyConstraint(['account_id'], ['accounts.id'], )
+
 
 class BalanceTransaction(Base):
     ''' Stores a transaction for every change made to the balances table '''

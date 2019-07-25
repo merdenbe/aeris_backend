@@ -46,9 +46,9 @@ class db:
 
             # Log transaction
             bt = BalanceTransaction(
-                account_id = account_id,
-                old_value = balance.value,
-                new_value = balance.value + coupon_value
+                account_id=account_id,
+                old_value=balance.value,
+                new_value=balance.value + coupon_value
             )
             session.add(bt)
 
