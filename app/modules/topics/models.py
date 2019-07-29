@@ -13,7 +13,7 @@ class Topic(Base):
     id = Column(Integer, primary_key=True)
 
     name = Column(String(256), nullable=False)
-    course_id = Column(Integer, nullable=False)
+    course_id = Column(Integer, nullable=False, index=True)
 
     ForeignKeyConstraint(['course_id'], ['courses.id'], )
 
