@@ -1,3 +1,6 @@
+from sqlalchemy import exc
+from falcon import HTTPBadRequest
+
 from ..register.models import Profile
 from .models import TutorProfile, Session, Tutor
 from ..utils import Session_Maker
@@ -42,7 +45,11 @@ class db:
                 topic_id=topic_id,
                 status='pending'
             )
-            session.add(s)
-            session.commit()
+            try:
+                session.add(s)
+                session.commit()
+            except exc.IntegrityError:
+                msg = "Insert into sessions table failed: improper id passed."
+                raise HTTPBadRequest('Improper ID', msg)
 
             return s.id
