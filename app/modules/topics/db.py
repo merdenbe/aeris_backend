@@ -19,4 +19,4 @@ class db:
                 msg = "No topics associated with given course_id."
                 raise HTTPBadRequest("No topics", msg)
 
-            return [topic.name for topic in topics]
+            return [{"name": topic.name, "id": topic.id} for topic in topics]
