@@ -11,7 +11,8 @@ from .modules.profile.resources import ProfileResource
 from .modules.coupons.resources import CouponResource
 from .modules.topics.resources import TopicResource
 from .modules.find_tutor.resources import FindTutorResource
-from .modules.cancel.resources import CancelResource
+from .modules.cancel_session.resources import CancelSessionResource
+from .modules.log_session.resources import LogSessionResources
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -37,7 +38,8 @@ def create_api():
     coupon_resource = CouponResource(Api_Session)
     topic_resource = TopicResource(Api_Session)
     find_tutor_resource = FindTutorResource(Api_Session)
-    cancel_resource = CancelResource(Api_Session)
+    cancel_session_resource = CancelSessionResource(Api_Session)
+    log_session_resource = LogSessionResource(Api_Session)
 
     # Declare routes
     api.add_route('/reauthenticate', reauthenticate_resource)
@@ -50,6 +52,7 @@ def create_api():
     api.add_route('/coupons', coupon_resource)
     api.add_route('/topics/{course_id:int()}', topic_resource)
     api.add_route('/find_tutor', find_tutor_resource)
-    api.add_route('/cancel', cancel_resource)
+    api.add_route('/cancel', cancel_session_resource)
+    api.add_route('/log', log_session_resource)
 
     return api

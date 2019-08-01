@@ -6,7 +6,7 @@ from .db import db
 from ..reauthenticate.authenticate import authenticate_request
 
 
-class CancelResource:
+class LogSessionResource:
 
     # Cancels a session
     def on_put(self, req, resp):
@@ -19,13 +19,12 @@ class CancelResource:
             raise HTTPBadRequest("Bad Request", msg)
 
         # Check request parameters
-        if body.keys() != {"session_id"}:
+        if body.keys() != {"session_id", "pupil_logged_time", "rating"}:
             msg = "Missing or incorrect parameters."
             raise HTTPBadRequest("Bad Request", msg)
 
-        self.db.cancel_session(body["session_id"])
+        self.db.pupil_log_session(body["session_id"], body["pupil_logged_time"], body["rating"])
 
     def __init__(self, Api_Session):
         self.db = db(Api_Session)
         self.Api_Session = Api_Session
-
